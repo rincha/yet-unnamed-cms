@@ -1,0 +1,60 @@
+.form-group.required label::after {
+    content: ' *';
+    color:#A00;
+}
+.form-control.hasDatepicker {
+    z-index: 3;
+    position: relative;
+}
+.form-group .hint-block {
+    font-style: italic;
+    color:#999;
+}
+a.asc::after, a.desc::after, .as-sort::after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    padding-left: 10px;
+}
+a.asc::after, .as-sort.asc::after {content: '\f160';}
+a.desc::after, .as-sort.desc::after {content: '\f161';}
+
+.print .no-print {display: none;}
+.print .print-strikethrough {
+    text-decoration: line-through;
+}
+.print .print-as-text {
+    background: transparent;
+    border: none;
+    color: #000;
+    font-weight: bold;
+}
+.print .print-as-text .fa {
+    display: none;
+}
+
+.thm-header {
+    background: #EEE;
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 15px;
+}
+.thm-logo {
+    display: inline-block;
+    line-height: 40px;
+}
+.thm-site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.thm-content {
+    flex: 1 1;
+}
+.thm-footer {
+    background: #EEE;
+    border-top: 1px solid #DDD;
+    margin-top: 15px;
+    line-height: 40px;
+}
+

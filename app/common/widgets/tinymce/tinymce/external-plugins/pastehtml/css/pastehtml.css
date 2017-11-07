@@ -1,0 +1,9 @@
+#message {
+	display:none; border:1px solid #CCC; background-color:#f8eeb8; background-repeat:no-repeat; background-position:5px center; padding:3px 3px 3px 40px;
+	position:absolute; right:0px; top:0px;
+        z-index: 2;
+}
+body {
+    font-size:14px;
+    font-family: Arial;
+}

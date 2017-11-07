@@ -1,0 +1,362 @@
+/* 
+    Document   : rfiles.css
+    Created on : 10.01.2014, 8:06:35
+    Author     : rincha
+    Description:
+*/
+.modal .rfiles_cont_dialog {
+    width:752px;
+}
+.rfiles_cont input[type="file"] {
+    padding: 0 5px;
+}
+.rfiles_wrapper {
+    position: relative;
+}
+#rfiles_ifarme {
+    width: 500px;
+    height: 100px;
+    border: 1px solid #CCC;
+}
+.rfiles_cont {
+    background: #EFEFEF;
+    position: relative;
+    width: 750px;
+    height: 500px;
+    font-size: 14px;
+    padding: 0 !important;
+}
+.rfiles_cont input[type="text"] {
+    font-size: 12px;
+    padding: 2px 3px;
+    margin: 0 3px;
+    border: 1px solid #CCC;
+}
+.rfiles_cont .panel {
+    border-bottom: 1px solid #CCC;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 750px;
+    height: 49px;
+}
+.rfiles_cont .panel .view {
+    width: 93px;
+    position: absolute;
+    right: 0; top: 0; height: 43px;
+    border-left: 1px solid #CCC;
+    padding: 3px;
+    line-height: 24px;
+    font-size: 20px;
+}
+.rfiles_cont .panel .view a {
+text-align: center;
+cursor: pointer;
+margin: 0 4px;
+color:#999;
+}
+.rfiles_cont .panel .view a:hover, .rfiles_cont .panel .view a.active {
+    color:#111;
+}
+
+.rfiles_cont .panel .action {
+    display: block;
+    padding: 3px;
+    height: 49px;
+    width: 49px;
+    overflow: hidden;
+    float: left;
+    border-right: 1px solid #CCC;
+    position: relative;
+}
+.rfiles_cont .panel .action a.btn, .rfiles_cont .panel .action a.del_btn {
+    display: block;
+    width: 43px;
+    height: 43px;
+    position: absolute;
+    top: 3px; left: 3px;
+	border: none;
+	padding: 0;
+	border-radius: 0;
+    /*background-color: #E99;*/
+}
+.rfiles_cont .panel .action .cont {
+    overflow: hidden;
+    position: absolute;
+    top: 3px; left: 49px;
+    /*background-color: #EFEFEF;*/
+}
+.rfiles_cont .panel .action a.btn span, .rfiles_cont .panel .action a.del_btn span {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 5px;
+    background-image: url(main_btn.png);
+    background-repeat: no-repeat;
+}
+.rfiles_cont .panel .create_folder a.btn span {
+    background-position:  0 0;
+}
+.rfiles_cont .panel .create_files a.btn span {
+    background-position:  -32px 0;
+}
+.rfiles_cont .panel .delete a.del_btn span {
+    background-position: -64px 0;
+}
+
+.rfiles_cont .messages {
+    position: absolute;
+    width: 738px;
+    top: 49px;
+    left: 0;
+    z-index: 3;
+    background-color: #EFEFEF;
+    border: 1px solid #CCC;
+    padding: 10px 5px;
+    display: none;
+}
+
+.rfiles_cont .messages a.close {    
+    position: absolute; 
+    top: 3px; right: 3px;    
+}
+
+.rfiles_cont .messages .mes {
+    padding: 4px 10px;
+    margin: 3px 20px 3px 0;
+}
+
+.rfiles_cont .messages .mes_error {
+    background-color: #ff7d63;
+    border: 1px solid #ff3e18;
+}
+
+.rfiles_cont .messages .mes_info {
+    background-color: #a3a9ff;
+    border: 1px solid #1828ff;
+}
+
+.rfiles_cont .messages .mes_success {
+    background-color: #94ff73;
+    border: 1px solid #186400;
+}
+
+.rfiles_cont .fselected {
+    background-color: #d2dfff;
+}
+.rfiles_cont .factive {
+    border-color: #0072b3 !important;
+}
+
+.rfiles_cont .folders {
+    background: #FFF;
+    border-right: 1px solid #CCC;
+    padding: 2px 5px;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 199px;
+    height: 366px;
+    overflow: auto;
+}
+.rfiles_cont .folders div div {
+    padding-left: 20px;
+}
+.rfiles_cont .folders a.folder {
+    line-height: 20px;
+    padding: 0 5px 0 5px;
+    display: block;
+    overflow: hidden;
+    margin: 2px 0;
+    border: 1px solid #DDD;
+    text-decoration: none;
+    border-radius: 2px;
+    color: #333;
+}
+.rfiles_cont .folders a.folder .fa {
+    color:#AAA;
+}
+.rfiles_cont .folders a.folder:hover {
+    border:1px solid #0072b3;
+}
+
+.rfiles_cont .files {
+    background: #FFF;
+    position: absolute;
+    top: 50px;
+    left: 200px;
+    width: 530px;
+    height: 360px;
+    overflow: auto;
+    padding: 5px;
+}
+.rfiles_cont .files .compact a.file {
+    height: 20px;
+    line-height: 20px;
+    padding: 0 5px;
+    width: 250px;
+    display: block;
+    overflow: hidden;
+    margin: 2px 3px 2px 0;
+    border: 1px solid #DDD;
+    text-decoration: none;
+    color: #333;
+    border-radius: 2px;
+    float: left;
+    white-space: nowrap;
+}
+.rfiles_cont .files .compact a.file .fa {
+    color:#AAA;
+    margin-right: 5px;
+}
+.rfiles_cont .files .compact a.file:hover {
+    border:1px solid #0072b3;
+}
+.rfiles_cont .files table.list {
+    border-collapse: collapse;
+    border: none;
+    padding: 0; margin: 0;
+    font-size:12px;
+}
+.rfiles_cont .files table.list td {
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
+    padding: 3px 4px; 
+    margin: 0;
+}
+.rfiles_cont .files table.list tr:hover td {
+    /*border-top: 1px solid #0072b3;
+    border-bottom: 1px solid #0072b3;*/
+    background-color: #bfceff;
+}
+.rfiles_cont .files table.list a.file {
+    display: block;
+    border: 1px solid #FFF;
+    border-radius: 2px;
+    padding: 0 3px;
+    font-size:14px;
+}
+.rfiles_cont .files .icons a.file {
+    width: 180px;
+    height: 66px;
+    line-height: 16px;
+    display: block;
+    overflow: hidden;
+    margin: 2px 3px 2px 0;
+    border: 1px solid #DDD;
+    text-decoration: none;
+    border-radius: 2px;
+    float: left;
+    text-align: center;
+} 
+.rfiles_cont .files .icons a.file:hover {
+    border:1px solid #0072b3;
+}
+.rfiles_cont .files .icons a.file span {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border: 1px dashed #EFEFEF;
+    margin: 0 auto;
+    background-position: center center;
+    background-repeat: no-repeat;    
+}
+
+.rfiles_cont .ftype {
+    background-image: url(icons/file.png);
+}
+.rfiles_cont .files .ftype_image {
+    background-image: url(icons/image.png);
+}
+.rfiles_cont .files .ftype_text {
+    background-image: url(icons/text.png);
+}
+.rfiles_cont .files .ftype_table {
+    background-image: url(icons/table.png);
+}
+.rfiles_cont .files .ftype_video {
+    background-image: url(icons/video.png);
+}
+.rfiles_cont .files .ftype_sound {
+    background-image: url(icons/sound.png);
+}
+
+
+.rfiles_cont .info {
+    border-top:1px solid #CCC;
+    background: #FFF;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 750px;
+    height: 84px;
+}
+.rfiles_cont .info .tmb {
+    width: 50px;
+    position: absolute;
+    left: 10px;
+    top:10px;
+}
+.rfiles_cont .info .file_info {
+    width: 439px;
+    height: 60px;
+    position: absolute;
+    left: 60px;
+    top:0;
+    border-right:1px solid #CCC;
+    padding: 10px;
+    
+}
+.rfiles_cont .info .file_insert {
+    width: 240px;
+    padding: 10px;
+    height: 60px;
+    position: absolute;
+    right: 0px;
+    top:0;
+}
+.rfiles_cont .info .file_insert a {
+    display: block;
+}
+.rfiles_cont .file_insert .cont {
+    position: absolute;
+    width: 568px;
+    height: 338px;
+    right: 0;
+    bottom: 0;
+    background-color: #EFEFEF;
+    border: 1px solid #CCC;
+    box-shadow: 0px 0px 2px rgb(0,0,0);
+    padding: 30px 10px 10px 10px;
+    z-index: 2;
+    overflow: auto;
+}
+.rfiles_cont .file_insert .cont a {
+    width: 240px;
+    float: left;
+    overflow: hidden;
+    border-radius: 3px;
+    margin: 0 4px 2px 0;
+}
+.rfiles_cont .file_insert .cont a:hover {
+    background-color: #b0c8ff;
+}
+.rfiles_cont .file_insert .cont .header {
+    font-weight: bold;
+    background-color: #CCC;
+    line-height: 24px;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+}
+.rfiles_cont .file_insert .cont .header a {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    width: auto;
+    color: #A00;
+}
+.rfiles_cont .file_insert .cont .header a:hover {
+    background-color: #ffceb0;
+}

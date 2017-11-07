@@ -1,0 +1,22 @@
+.wgt-treeview {}
+.wgt-treeview ul {display: block; margin: 0; padding: 0;}
+.wgt-treeview li {
+    position: relative;
+    display: block; margin: 2px 0; padding: 0; list-style: none outside none;
+    line-height: 30px;
+}
+.wgt-treeview ul ul {
+    padding-left: 40px;
+}
+.wgt-treeview .btn-group.pull-left {margin-right: 15px;}
+.wgt-treeview .btn-group.pull-right {margin-left: 15px;}
+
+.wgt-treeview .item {
+    padding: 3px 5px;
+}
+.wgt-treeview .item:hover {
+    background-color: #EEE;
+}
+.wgt-treeview .item .badge {
+    min-width: 30px;
+}

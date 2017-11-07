@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Очистить HTML</title>
+        <script type="text/javascript">
+            (function () {
+                function loadScript(url, callback) {
+                    var script = document.createElement("script")
+                    script.type = "text/javascript";
+
+                    if (script.readyState) { //IE
+                        script.onreadystatechange = function () {
+                            if (script.readyState == "loaded" || script.readyState == "complete") {
+                                script.onreadystatechange = null;
+                                callback();
+                            }
+                        };
+                    } else { //Others
+                        script.onload = function () {
+                            callback();
+                        };
+                    }
+                    script.src = url;
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                }
+                loadScript(top.tinymce.activeEditor.settings.jquery_url, function () {
+                    $('head').append('<link href="' + top.tinymce.activeEditor.settings.bootstrap.css + '" rel="stylesheet" type="text/css">');
+                    loadScript(top.tinymce.activeEditor.settings.bootstrap.js, function () {
+                        loadScript('js/pastehtml.js', function () {
+                        });
+                    });
+                });
+            })();
+        </script>
+        <link href="css/pastehtml.css" rel="stylesheet" type="text/css">
+    </head>
+    <body onresize="PasteWordDialog.resize();">
+        <div class="container">
+            <div id="message" style="background-image: url(&quot;img/ok.png&quot;); display: none;" onclick="$('#message').slideUp();"></div>
+            <form name="source" onsubmit="PasteHTMLDialog.startclear(); PasteHTMLDialog.insert(); top.tinymce.activeEditor.windowManager.close()" action="#">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="checkbox">
+                        <label><input type="checkbox" name="clear_style" id="clear_style" checked> очистить стили </label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="clear_attr" id="clear_attr" checked> очистить атрибуты </label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="a_blank" id="a_blank" checked> все ссылки в новом окне </label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="del_p_in_td" id="del_p_in_td" checked> удалить абзацы из таблиц </label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="del_a" id="del_a"> удалить ссылки </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="checkbox">
+                        <label><input type="checkbox" name="del_img" id="del_img"> удалить изображения </label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="del_empty" id="del_empty" checked /> удалить пустые теги </label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="clear_html" id="min_html" onchange="$('#mid_html').attr('checked', false);"> минимальное форматирование </label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="clear_html" id="mid_html" onchange="$('#min_html').attr('checked', false);"  checked> основное форматирование </label>
+                        </div>
+                    </div>                    
+                </div>
+
+                <div id="iframecontainer"></div>
+                <div id="cleancont"></div>
+
+                <div class="mceActionPanel">
+                    <input type="submit" id="insert" name="insert" value="очистить и вставить" class="btn btn-primary" />
+                    <input type="button" id="clear" class="btn btn-default" name="clear" value="очистить" onclick="PasteHTMLDialog.startclear();" />
+                    <input type="button" id="cancel"  class="btn btn-danger" name="cancel" value="отмена" onclick="top.tinymce.activeEditor.windowManager.close();" />
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

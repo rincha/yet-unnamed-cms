@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Файловый менеджер Rfiles</title>
+    <!--<script type="text/javascript" src="../compat3x/tiny_mce_popup.js"></script>-->
+    <!-- Force latest IE rendering engine or ChromeFrame if installed -->
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+    <link rel="stylesheet" href="css/jquery.fileupload-ui.css">
+    
+    <script type="text/javascript">
+	(function () {
+	function loadScript(url, callback) {
+	    var script = document.createElement("script")
+	    script.type = "text/javascript";
+
+	    if (script.readyState) { //IE
+		script.onreadystatechange = function () {
+		    if (script.readyState == "loaded" || script.readyState == "complete") {
+			script.onreadystatechange = null;
+			callback();
+		    }
+		};
+	    } else { //Others
+		script.onload = function () {
+		    callback();
+		};
+	    }
+	    script.src = url;
+	    document.getElementsByTagName("head")[0].appendChild(script);
+	}
+	loadScript(top.tinymce.activeEditor.settings.jquery_url, function () {
+	    loadScript('js/vendor/jquery.ui.widget.js',function(){
+		loadScript('js/jquery.iframe-transport.js',function(){
+		    loadScript('js/jquery.fileupload.js',function(){
+			loadScript('js/rfiles.js',function(){
+			    //console.log('all js loaded');
+			});
+		    });
+		});
+	    });
+	    
+	});
+	})();
+    </script>
+    <link href="css/rfiles.css" rel="stylesheet" type="text/css">
+</head>
+<body id="rfiles">
+    <div id="sys_conteiner">
+	<div id="sys_panel">
+	    <div class="btn add_folder">
+		<a class="act" href="#" title="добавить папку"></a>
+		<div class="form">
+		    <a href="#" onclick="$(this).parents('div.btn:first').find('a.act:first').click(); return false;" class="sys_close"><img src="img/close.png"></a>
+		    <form action="" method="post" onsubmit="Rfiles.createFolder(this); $('#sys_panel .add_folder a.act').click();  return false;">
+			<div>
+			    Имя: <br>
+			    <input type="text" name="Folder[title]" size="20" style="width: 200px;">
+			</div>
+			<div id="sys_folder_parents_list_cont">
+			    Родительская: <br>
+				<select id="sys_folder_parents_list" name="Folder[parent_id]" style="width: 200px;">
+					<option value="">--нет--</option>
+				</select>				
+			</div>
+			<div>
+			    Описание:<br>
+			    <textarea name="Folder[description]" rows="3" cols="40" style="width: 250px;"></textarea>
+			</div>
+			<div>
+			    <input type="submit" value="создать" class="input-button">
+			</div>
+		    </form>
+		</div>
+	    </div>
+	    <div class="btn add_file">
+		<a class="act" href="#" title="добавить файлы"></a>
+		<div class="form">
+		    <a href="#" onclick="$(this).parents('div.btn:first').find('a.act:first').click(); return false;" class="sys_close"><img src="img/close.png"></a>
+		    <form action="" target="sys_frame_uploader">
+			<span class="fileinput-button">
+			    <span class="add_icon"></span>
+			    <span>Выбрать файлы...</span>
+			    <input id="sys_fileuploader" type="file" name="Filedata[]" multiple>
+			</span>
+		    </form>
+		    <iframe name="sys_frame_uploader" id="sys_frame_uploader" width="230" height="50" frameborder="0" scrolling="auto"></iframe>
+		    <div class="progress"></div>
+		    <div class="files"></div>
+		</div>
+	    </div>
+	    <div class="btn del">
+		<a class="act" href="#" title="удалить"></a>
+		<div class="form">
+		    <a href="#" onclick="$(this).parents('div.btn:first').find('a.act:first').click(); return false;" class="sys_close"><img src="img/close.png"></a>
+		    Подтвердить удаление выбранных элементов:
+		    <div class="files">
+			<strong>Файлы:</strong>
+			<div class="list"></div>
+			<input class="input-button" type="button" value="удалить выбранные файлы" onclick="Rfiles.deleteFiles(); $(this).parents('.form:first').toggle(); $(this).parents('.btn:first').toggleClass('active');">
+		    </div>
+		    <div class="folders">
+			<strong>Папки:</strong>
+			<div class="list"></div>
+			<input class="input-button" type="button" value="удалить выбранные папки" onclick="Rfiles.deleteFolders(); $(this).parents('.form:first').toggle(); $(this).parents('.btn:first').toggleClass('active');">
+		    </div>
+		    <input class="input-button" type="button" value="отмена" onclick="$(this).parents('.form:first').toggle(); $(this).parents('.btn:first').toggleClass('active'); ">
+		</div>
+	    </div>
+	    <div class="btn log"><a class="act" href="#" title="Журнал операций"></a></div>
+	    <div class="btn help">
+		<a class="act" href="#" title="справка"></a>
+		<div class="form">
+		    <a href="#" onclick="$(this).parents('div.btn:first').find('a.act:first').click(); return false;" class="sys_close"><img src="img/close.png"></a>
+		    <strong class="title">Справка</strong>
+		    <p><b>Выбор</b> папки или файла: одинарный щелчек по имени.</p>
+		    <p><b>Выделение</b> папки или файла: одинарный щелчек по кружку рядом с именем.</p>
+		    <p><b>Удаление</b> папки или файла: сначала <b>выделить</b> затем нажать на значек "удалить" в верхней панели.</p>
+		    <p><b>Вставка</b> на страницу: после <b>выбора</b> файла внизу будут отображены параметры вставки.</p>
+		    <p><b>Создание</b> папки: нажать на значек "добавить папку" в верхней панели, ввести имя и нажать создать.</p>
+		    <p><b>Загрузка</b> файлов: нажать на значек "добавить файлы" в верхней панели, выбрать файлы и дождаться окончания загрузки (файлы будут загружены в <b>выбранную</b> папку).</p>
+		    <p><b>Изменить</b> имя файла: <b>выбрать</b> файл, нажать на кнопку "изменить текущий файл"(справа на панели со списком файлов).</p>
+		</div>
+	    </div>
+	</div>
+	<div id="sys_folders">
+	    <div class="panel">		
+		<div style="width:64px; float: right; text-align: right;">
+		<a href="#" onclick="Rfiles.loadFolders(); return false;" class="btn refresh"  title="обновить"><span class="icon"></span></a>
+		<span class="sys_iloader"><span> </span></span>
+		</div>
+		<strong>Папки:</strong>
+	    </div>
+	    <div class="list"></div>
+	</div>
+	<div id="sys_files">
+	    <div class="panel">
+		<div style="width:200px; float: right; text-align: right;">
+		    <a href="#" onclick="Rfiles.loadFiles(Rfiles.currentFolder); return false;" class="btn refresh" title="обновить"><span class="icon"></span></a>
+		    <a href="#" onclick="if (Rfiles.initFileForm()) {Rhelper.window('#sys_file_update');} return false;" class="btn edit_file"  title="изменить текущий файл"><span class="icon"></span></a>
+		    <span class="sys_iloader"><span> </span></span>
+		</div>
+		<strong>Файлы: /</strong>
+		<strong class="folder_name"></strong>		
+	    </div>
+	    <div class="list"><div class="subfolders"></div>
+				<div class="files_in"></div></div>
+	</div>
+	<div class="sys_clear"></div>
+	<div id="sys_info">
+	    <div id="sys_log" style="display:none;">
+		<strong class="header">Журнал операций:</strong>
+		<a href="#" onclick="$('#sys_panel>div.log>a.act').click(); return false;" class="close"><img src="img/close.png"></a>
+	    </div>
+	    <div class="info" style="display:none;">
+		
+	    </div>
+	    <div class="insert" style="display:none;">
+			<div class="actions">
+				<a class="default" href="#" onclick="Rinsert.insert('link'); return false;"><span></span>ссылка</a>
+				<a class="image im" href="#" onclick="Rinsert.insert('image'); return false;"><span></span>изображение</a>
+				<a class="image" href="#" onclick="Rinsert.showImageTmb(this); return false;"><span></span>уменьшенное изображение</a>
+				<a class="media" href="#" onclick="Rinsert.insert('media'); return false;"><span></span>видео</a>
+				<a class="flash" href="#" onclick="Rinsert.insert('flash'); return false;"><span></span>флэш-ролик</a>			
+			</div>
+			<div id="sys_images_options">
+				<a class="close" onclick="$('#sys_images_options').hide(); return false;" href="#"><img src="img/close.png"></a>
+				параметры вставки изображения:
+				
+				<div class="sizes">
+					<table border="1"></table>
+				</div>
+				<div class="options">
+					<a class="image check zoom selected" href="#" onclick="$(this).toggleClass('selected'); return false;"><span class="check"></span> с увеличением</a>
+					<a class="default check titled" href="#" onclick="$(this).toggleClass('selected'); return false;"><span class="check"></span> с подписью</a>
+				</div>
+			</div>
+	    </div>
+	</div>
+    </div> 
+    <div id="sys_file_update" style="display:none;">
+	<strong>Изменить имя файла:</strong>
+	<form action="" method="post" onsubmit="Rfiles.updateFile(this); return false;">
+	    Новое имя: <input name="File[title]" type="text" value="" style="width:220px">
+	    <input type="submit" value="сохранить" class="input-button">
+	</form>
+    </div>
+	
+</body> 
+</html> 

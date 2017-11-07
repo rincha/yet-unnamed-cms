@@ -1,0 +1,388 @@
+body {
+    font-size: 12px;
+    font-family: Arial;
+    background-color: #EFEFEF;
+}
+input[type="button"],input[type="submit"] {
+    cursor: pointer;
+}
+.sys_clear {
+    clear: both;
+    height: 1px;
+    width: 100%;
+    overflow: hidden;
+}
+#sys_panel {
+    height: 33px;
+}
+#sys_folders {
+    height: 300px;
+    width: 200px;
+    float: left;
+    border:1px solid #CCC;
+    border-right: 1px double #CCC;    
+    background: #FFF;
+}
+#sys_folders .list { overflow-x: hidden;
+    overflow-y: auto; height: 270px}
+#sys_folders .panel, #sys_files .panel  {
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 5px 0;
+    border-bottom:1px solid #CCC;
+}
+#sys_folders .folder {
+    height: 20px;
+    white-space: nowrap;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 0px 0;
+    margin: 2px 0;
+    border-bottom:1px solid #DDD;
+}
+#sys_folders .folder .check, #sys_info .options a span.check {
+    display: block; float: left; margin: 5px 7px 5px 3px;
+    width: 10px; height: 10px;
+    border-radius: 5px;
+    border:1px solid #999;
+    cursor: pointer;
+}
+#sys_folders .folder .check:hover, #sys_info .options a:hover span.check {
+    border:1px solid #333;
+}
+#sys_folders .selected .check, #sys_info .options a.selected span.check {
+    background-color: #1ea3e8;
+}
+#sys_folders .folder a {
+    display: block; margin-left: 24px;
+    text-decoration: none;
+}
+#sys_folders .folder a:hover, #sys_folders .current a {
+    background-color: #c6ecff;
+}
+.sys_iloader {width:20px; float: right;}
+
+
+#sys_files {
+    margin-left: 210px;
+    height: 300px;
+    border:1px solid #CCC; 
+    background: #FFF;
+    overflow: hidden;
+}
+#sys_files .list { overflow-x: hidden;
+    overflow-y: auto; height: 270px}
+#sys_files .list .file {
+    height: 20px;
+    white-space: nowrap;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 0px 0;
+    margin: 2px 3px;
+    border-bottom:1px solid #DDD;
+    width:205px;
+    float: left;
+}
+
+#sys_files .list .folder {
+    height: 20px;
+    white-space: nowrap;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 0px 0 0 0px;
+    margin: 2px 3px;
+    border-bottom:1px solid #DDD;
+    width:205px;
+    float: left;
+	background-image: url('../img/folder.png');
+	background-position: 20px 0px;
+	background-repeat: no-repeat;
+}
+#sys_files .folder a {
+	display: block; margin-left: 44px;
+    text-decoration: none;
+}
+
+#sys_files .list .file a span {
+    background-image: url('../img/icons.png');
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin: 2px;
+}
+#sys_files .list .default a span {background-position: -64px 0;}
+#sys_files .list .image a span {background-position: -80px 0;}
+#sys_files .list .document a span {background-position: -96px 0;}
+#sys_files .list .table a span {background-position: -112px 0;}
+#sys_files .list .media a span {background-position: -128px 0;}
+#sys_files .list .flash a span {background-position: -144px 0;}
+
+#sys_files .file .check, #sys_files .folder .check {
+    display: block; float: left; margin: 5px 7px 5px 3px;
+    width: 10px; height: 10px;
+    border-radius: 5px;
+    border:1px solid #999;
+    cursor: pointer;
+}
+#sys_files .file .check:hover, #sys_files .folder .check:hover {
+    border:1px solid #333;
+}
+#sys_files .selected .check {
+    background-color: #1ea3e8;
+}
+#sys_files .file a{
+    display: block; margin-left: 24px;
+    text-decoration: none;
+}
+
+#sys_files .file a:hover, #sys_files .current a, #sys_files .folder a:hover {
+    background-color: #c6ecff;
+}
+#sys_panel div.btn  {
+    display: block;
+    width: 32px; height: 32px; float: left;
+    margin-right: 15px; 
+    position: relative;
+    float: left;
+    z-index: 2;
+}
+#sys_panel div.btn a.act {
+    display: block;
+    width: 32px; height: 32px;
+    background-image: url('../img/main_btn.png');
+    position: relative;
+    float: left;
+    z-index: 3;
+}
+
+#sys_panel .active a.act {background-color: #FFF; border: 1px solid #0096ff; border-bottom: none;}
+#sys_panel .btn .form {
+    padding:10px 5px;
+    display: none; position: absolute; left: 0px; top:32px; border: 1px solid #0096ff;
+    width:350px;
+    background: #FFF;
+    z-index: 1;
+}
+#sys_panel .btn a.act {display: block; width: 32px; height: 32px;}
+#sys_panel .add_folder a.act {background-position: 0 0;}
+#sys_panel .add_file a.act {background-position: -32px 0;}
+#sys_panel .del a.act {background-position: -64px 0;}
+#sys_panel .del_folder a.act {background-position: -96px 0;}
+#sys_panel .del_file a.act {background-position: -128px 0;}
+#sys_panel .move a.act {background-position: -160px 0;}
+#sys_panel .options a.act {background-position: -192px 0;}
+#sys_panel .help a.act {background-position: -224px 0;}
+#sys_panel .log a.act {background-position: -256px 0;}
+
+#sys_panel .add_file .files {
+    font-size: 10px;
+}
+#sys_panel .add_file .fileinput-button, #sys_panel .input-button  {
+    background: #f6f6f6; /* Old browsers */
+    background: linear-gradient(to bottom, #f6f6f6 0%,#d2ebff 100%); /* W3C */
+    border: 1px solid #0096ff;
+    border-radius: 3px;
+    padding: 3px;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin: 0px;
+    height: 18px;
+    line-height: 18px;
+}
+#sys_panel .input-button {line-height: 10px;}
+#sys_panel .add_file .fileinput-button .add_icon {
+    background-image: url('../img/icons.png'); background-position: -48px 0;
+    width: 16px; height: 16px; display: block; float: left; margin-right: 5px;
+}
+#sys_panel .add_file .files .progress_all {
+    display: block;
+    background-color: #0A0;
+    background-image: url('../img/progressbar.gif');
+    background-repeat: repeat;
+    background-position: top left;
+    width:0px;
+    height: 10px;
+}
+#sys_panel .add_file .files div {
+    height: 15px;
+    line-height: 15px;
+    padding: 2px 3px;
+    margin: 2px 0;
+    white-space: nowrap;
+    background: #82ccff;
+    border-radius: 3px;
+    overflow: hidden;
+}
+#sys_panel .add_file .files div.error {
+    background-image: url('../img/error.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 20px;
+}
+#sys_panel .add_file .files div.success {
+    background-image: url('../img/ok.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 20px;
+}
+#sys_panel .add_file .files div span {
+    display: block;
+    background: #ffa200;
+    width:0px;
+    height: 3px;
+}
+#sys_panel .add_file .files div.success {background-color: #d4ff82;}
+#sys_panel .add_file .files div.error {background-color: #ffa882;}
+#sys_panel .add_file .files div.success span {background-color: #0A0;}
+#sys_panel .add_file .files div.error span {background-color: #A00;}
+
+
+#sys_info {
+    position: relative;
+    height: 100px;
+}
+#sys_log_btn {
+    position: absolute;
+    z-index: 2;
+    bottom: 0; right: 0;
+}
+#sys_log {
+    font-size: 10px;
+    font-family: Arial;
+    line-height: 14px;
+    position: absolute;
+    z-index: 1;
+    top: 0; left: 0;
+    background: #FFF;
+    height: 130px;
+    overflow-y: auto;
+    margin: 3px 0;
+    padding-top: 14px;
+    border:1px solid #CCC;
+    width:600px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
+}
+#sys_log .line {
+    margin: 3px 0;
+    padding: 3px 5px;
+    border-bottom:1px solid #CCC;
+}
+#sys_log .error {background-color: #ffd7c6;}
+#sys_log .success {background-color: #e4ffc6;}
+
+#sys_folders .panel, #sys_files .panel {
+    padding: 5px 5px; 
+}
+#sys_folders .panel .btn, #sys_files .panel .btn {
+    display: inline-block; height: 20px; line-height: 20px;
+}
+#sys_folders .panel .icon , #sys_files .panel .icon {
+    background-image: url('../img/icons.png');
+    width: 16px; height: 16px; display: block; float: left; margin-right: 3px;
+    margin: 2px 3px 0 0;
+}
+#sys_folders .panel .refresh .icon, #sys_files .panel .refresh .icon {background-position: 0 0;}
+#sys_folders .panel .edit_file .icon, #sys_files .panel .edit_file .icon {background-position: -16px 0;}
+#sys_folders .panel .edit_folder .icon, #sys_files .panel .edit_folder .icon {background-position: -32px 0;}
+#sys_folders .panel .add .icon, #sys_files .panel .add .icon {background-position: -48px 0;}
+
+#sys_info .info {
+    height: 65px; overflow: hidden; white-space: nowrap;
+    background: #FFF;
+    border: 1px solid #CCC;
+    padding: 4px;
+    margin: 3px 0 0 0;
+}
+#sys_info .info img {
+    float:left; margin: 0 10px 5px 0;
+}
+#sys_info .insert {
+    height: 60px;
+    background: #FFF;
+    border: 1px solid #CCC;
+    padding: 4px;
+    margin: 3px 0 0 0;
+    position: relative;
+}
+#sys_info .insert .actions {
+    clear: both;
+}
+#sys_info .insert .actions a {
+    display: block;
+    padding: 0 3px 0 0;
+    margin: 0 1px 0 3px;;
+    height: 18px;
+    line-height: 18px; 
+    float: left;
+    text-align: center;
+    /*background: #f6f6f6;
+    background: linear-gradient(to bottom, #f6f6f6 0%,#d2ebff 100%);
+    border: 1px solid #0096ff;*/
+    border-radius: 3px;
+	position: relative;
+}
+#sys_info .insert .actions a span {
+    background-image: url('../img/icons.png'); background-position: -160px 0;
+    width: 16px; height: 16px; display: block; float: left; margin: 1px 3px 0 0;
+}
+#sys_images_options .tmp_img_tmb {
+	float:left; width:100px;
+        margin-right: 10px;
+}
+#sys_images_options .tmp_img_tmb .example {
+	display: table; width: 100%;
+        background-image: url('../img/transparent.png');
+        border: 1px solid #CCC;
+}
+#sys_images_options .tmp_img_tmb .example div {
+    display: table-cell; vertical-align: middle; height:100px;
+}
+#sys_images_options .tmp_img_tmb .example img {
+    width: 100px;
+}
+
+#sys_images_options {
+	padding: 5px;
+	display: none;
+	position: absolute;
+	background: #fff;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
+}
+#sys_images_options .close {
+	position: absolute; top: 0; right: 0;
+}
+#sys_info .insert .options {
+    clear: both;
+}
+#sys_info .insert .options a.check {
+    border-radius: 3px;
+    background: #FFF;    
+    padding: 3px;
+    margin-right: 5px;
+    display: block;
+    height: 20px;
+    line-height: 20px; 
+    float: left;
+}
+
+.sys_window {
+    position: absolute;
+    width: 370px;
+    left:150px;
+    top:50px;
+    background: #FFF;
+    border: 1px solid #CCC;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
+    z-index: 10;
+    padding: 10px;
+}
+.sys_window .close, #sys_log .close, .sys_close {
+    position: absolute;
+    right:-8px;
+    top:-8px;
+    z-index: 10;
+}
+#sys_log .close, .sys_close {top:0px; right: 0px;}
+#sys_log .header {top:0px; left: 0px; position: absolute; z-index: 10;}

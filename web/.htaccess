@@ -1,0 +1,22 @@
+Options +FollowSymLinks
+Options -Indexes
+AddDefaultCharset UTF-8
+IndexIgnore */*
+RewriteEngine on
+
+#files images resizer
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(files/.*)/\.tmb/(\d*)([erc]{1})(\d*)/([^/]*)$ resizer.php?folder=$1&w=$2&h=$4&type=$3&file=$5 [last]
+
+#uploads images resizer
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(uploads/.*)/\.tmb/(\d*)([erc]{1})(\d*)/([^/]*)$ resizer.php?folder=$1&w=$2&h=$4&type=$3&file=$5 [last]
+
+# if a directory or a file exists, use it directly
+# otherwise forward it to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php
+

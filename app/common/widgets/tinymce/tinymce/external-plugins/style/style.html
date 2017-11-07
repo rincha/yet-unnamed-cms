@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Стиль</title>
+	<script type="text/javascript">
+	(function () {
+	function loadScript(url, callback) {
+	    var script = document.createElement("script")
+	    script.type = "text/javascript";
+
+	    if (script.readyState) { //IE
+		script.onreadystatechange = function () {
+		    if (script.readyState == "loaded" || script.readyState == "complete") {
+			script.onreadystatechange = null;
+			callback();
+		    }
+		};
+	    } else { //Others
+		script.onload = function () {
+		    callback();
+		};
+	    }
+	    script.src = url;
+	    document.getElementsByTagName("head")[0].appendChild(script);
+	}
+	loadScript(top.tinymce.activeEditor.settings.jquery_url, function () {
+            $('head').append('<link href="'+top.tinymce.activeEditor.settings.bootstrap.css+'" rel="stylesheet" type="text/css">');
+	    loadScript(top.tinymce.activeEditor.settings.bootstrap.js,function(){
+                loadScript('js/jquery.minicolors.min.js',function(){
+                    loadScript('js/style.js',function(){
+                    
+                    });
+                });		
+	    });	    
+	});
+	})();
+    </script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery.minicolors.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="header">Элемент: <span class="el-type"></span></div>
+    
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab">Текст</a></li>
+        <li role="presentation"><a href="#tab-block" aria-controls="tab-block" role="tab" data-toggle="tab">Блок</a></li>
+        <li role="presentation"><a href="#tab-border" aria-controls="tab-border" role="tab" data-toggle="tab">Границы</a></li>
+        <li role="presentation"><a href="#tab-all" aria-controls="tab-all" role="tab" data-toggle="tab">Все</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      
+      
+    <div role="tabpanel" class="tab-pane active" id="tab-text">
+          
+        <form action="">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Размер</td>
+                        <td>
+                            <div class="row style-group">
+                                <div class="col-xs-8">
+                                    <input type="text" class="style-unit form-control input-sm" name="font-size">
+                                </div>
+                                <div class="col-xs-4">
+                                    <select class="unit form-control input-sm">
+                                        <option value="px">пиксели</option>
+                                        <option value="pt">пункты</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Цвет</td>
+                        <td><input type="text" class="style form-control input-sm minicolors" name="color"></td>
+                    </tr>
+                    <tr>
+                        <td>Толщина</td>
+                        <td>
+                            <select class="style form-control input-sm" name="font-weight">
+                                <option value=""></option>
+                                <option value="normal">нормальный</option>
+                                <option value="bold">полужирный</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Стиль</td>
+                        <td>
+                            <select class="style form-control input-sm" name="font-style">
+                                <option value=""></option>
+                                <option value="normal">нормальный</option>
+                                <option value="italic">наклонный</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Высота строки</td>
+                        <td>
+                            <div class="row style-group">
+                                <div class="col-xs-8">
+                                    <input type="text" class="style-unit input-sm form-control" name="line-height">
+                                </div>
+                                <div class="col-xs-4">
+                                    <select class="unit form-control input-sm">
+                                        <option value="px">пиксели</option>
+                                        <option value="pt">пункты</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Оформление</td>
+                        <td>
+                            <select class="style form-control input-sm" name="text-decoration">
+                                <option value=""></option>
+                                <option value="line-through">перечеркнутый</option>
+                                <option value="overline">с чертой сверху</option>
+                                <option value="underline">подчеркнутый</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>                    
+            </table>
+        </form>
+          
+    </div>
+        
+        
+    <div role="tabpanel" class="tab-pane" id="tab-block">          
+        <form action="">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Выравнивание</td>
+                        <td>
+                            <select class="style form-control input-sm" name="float">
+                                <option value=""></option>
+                                <option value="left">по левому краю</option>
+                                <option value="right">по правому краю</option>
+                                <option value="none">нет</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Отображение</td>
+                        <td>
+                            <select class="style form-control input-sm" name="font-weight">
+                                <option value=""></option>
+                                <option value="inline">строчный</option>
+                                <option value="block">блок</option>
+                                <option value="inline-block">строчный блок</option>
+                            </select>
+                        </td>
+                        <td>Цвет фона</td>
+                        <td><input type="text" class="style form-control input-sm minicolors" name="background-color"></td>
+                    </tr>
+                    <tr>
+                        <td>Ширина</td>
+                        <td>
+                            <div class="row style-group">
+                                <div class="col-xs-6">
+                                    <input type="text" class="style-unit input-sm form-control" name="width">
+                                </div>
+                                <div class="col-xs-6">
+                                    <select class="unit form-control input-sm">
+                                        <option value="px">пиксели</option>
+                                        <option value="%">%</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Высота</td>
+                        <td>
+                            <div class="row style-group">
+                                <div class="col-xs-6">
+                                    <input type="text" class="style-unit input-sm form-control" name="height">
+                                </div>
+                                <div class="col-xs-6">
+                                    <select class="unit input-sm form-control">
+                                        <option value="px">пиксели</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="first-addon-80">
+                        <td colspan="2" class="style-group">
+                            Внутренние отступы                           
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">сверху</span>
+                                <input type="text" class="style-unit form-control" name="padding-top">
+                                <span class="input-group-addon">пикс.</span>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">справа</span>
+                                <input type="text" class="style-unit form-control" name="padding-right">
+                                <span class="input-group-addon">пикс.</span>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">снизу</span>
+                                <input type="text" class="style-unit form-control" name="padding-bottom">
+                                <span class="input-group-addon">пикс.</span>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">слева</span>
+                                <input type="text" class="style-unit form-control" name="padding-left">
+                                <span class="input-group-addon">пикс.</span>
+                            </div>
+                            <input type="hidden" class="unit" value="px">
+                        </td>
+                        <td colspan="2" class="style-group">
+                            Внешние отступы
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">сверху</span>
+                                <input type="text" class="style-unit form-control" name="margin-top">
+                                <span class="input-group-addon">пикс.</span>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">справа</span>
+                                <input type="text" class="style-unit form-control" name="margin-right">
+                                <span class="input-group-addon">пикс.</span>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">снизу</span>
+                                <input type="text" class="style-unit form-control" name="margin-bottom">
+                                <span class="input-group-addon">пикс.</span>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">слева</span>
+                                <input type="text" class="style-unit form-control" name="margin-left">
+                                <span class="input-group-addon">пикс.</span>
+                            </div>
+                            <input type="hidden" class="unit" value="px">
+                        </td>
+                    </tr>                    
+                </tbody>                    
+            </table>
+        </form>
+          
+    </div>
+        
+        
+    <div role="tabpanel" class="tab-pane" id="tab-border">
+        <form action="">
+            <div class="form-group style-group">
+                <label>Границы (толщина, стиль, цвет)</label>
+                <div class="row form-group-sm">
+                    <div class="col-xs-3">Сверху</div>
+                    <div class="col-xs-3"><input type="text" class="style-unit form-control" name="border-top-width"></div>
+                    <div class="col-xs-3"><select class="style input-sm form-control" name="border-top-style">
+                        <option value=""> </option>
+                        <option value="solid">solid</option>
+                        <option value="hidden">hidden</option>
+                        <option value="dotted">dotted</option>
+                        <option value="dashed">dashed</option>
+                        <option value="double">double</option>
+                        <option value="groove">groove</option>
+                        <option value="ridge">ridge</option>
+                        <option value="inset">inset</option>
+                        <option value="outset">outset</option>
+                    </select></div>
+                    <div class="col-xs-3"><input type="text" class="style form-control input-sm minicolors" name="border-top-color"></div>
+                </div>
+                <div class="row form-group-sm">
+                    <div class="col-xs-3">Справа</div>
+                    <div class="col-xs-3"><input type="text" class="style-unit form-control" name="border-right-width"></div>
+                    <div class="col-xs-3"><select class="style input-sm form-control" name="border-right-style">
+                        <option value=""> </option>
+                        <option value="solid">solid</option>
+                        <option value="hidden">hidden</option>
+                        <option value="dotted">dotted</option>
+                        <option value="dashed">dashed</option>
+                        <option value="double">double</option>
+                        <option value="groove">groove</option>
+                        <option value="ridge">ridge</option>
+                        <option value="inset">inset</option>
+                        <option value="outset">outset</option>
+                    </select></div>
+                    <div class="col-xs-3"><input type="text" class="style form-control input-sm minicolors" name="border-right-color"></div>
+                </div>
+                <div class="row form-group-sm">
+                    <div class="col-xs-3">Снизу</div>
+                    <div class="col-xs-3"><input type="text" class="style-unit form-control" name="border-bottom-width"></div>
+                    <div class="col-xs-3"><select class="style input-sm form-control" name="border-bottom-style">
+                        <option value=""> </option>
+                        <option value="solid">solid</option>
+                        <option value="hidden">hidden</option>
+                        <option value="dotted">dotted</option>
+                        <option value="dashed">dashed</option>
+                        <option value="double">double</option>
+                        <option value="groove">groove</option>
+                        <option value="ridge">ridge</option>
+                        <option value="inset">inset</option>
+                        <option value="outset">outset</option>
+                    </select></div>
+                    <div class="col-xs-3"><input type="text" class="style form-control input-sm minicolors" name="border-bottom-color"></div>
+                </div>
+                <div class="row form-group-sm">
+                    <div class="col-xs-3">Слева</div>
+                    <div class="col-xs-3"><input type="text" class="style-unit form-control" name="border-left-width"></div>
+                    <div class="col-xs-3"><select class="style input-sm form-control" name="border-left-style">
+                        <option value=""> </option>
+                        <option value="solid">solid</option>
+                        <option value="hidden">hidden</option>
+                        <option value="dotted">dotted</option>
+                        <option value="dashed">dashed</option>
+                        <option value="double">double</option>
+                        <option value="groove">groove</option>
+                        <option value="ridge">ridge</option>
+                        <option value="inset">inset</option>
+                        <option value="outset">outset</option>
+                    </select></div>
+                    <div class="col-xs-3"><input type="text" class="style form-control input-sm minicolors" name="border-left-color"></div>
+                </div>
+                <input type="hidden" class="unit" value="px">
+            </div>
+        </form>
+    </div>
+      
+      
+    <div role="tabpanel" class="tab-pane" id="tab-all">
+        <form action="">
+            <div class="form-group">
+            <label>Стиль:</label>
+            <textarea cols="50" rows="5" class="form-control" id="stylelist"></textarea>
+            </div>
+            <div class="form-group">
+            <label>Классы:</label>
+            <input type="text" class="form-control" id="classlist">
+            <div class="row">
+                <div class="col-xs-6">
+                    <select class="form-control" id="classlist_allowed">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-success" id="class_add">Добавить</button>
+                </div>
+            </div>
+            </div>
+        </form>
+    </div>
+      
+      
+    </div>
+    <div class="form-group">
+    <button class="btn btn-primary" id="apply">Применить</button>
+    <button class="btn btn-danger" id="close">Отмена</button>
+    </div>    
+</div>
+</body>
+</html>
