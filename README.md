@@ -1,4 +1,4 @@
-alfa-version Yet-unnamed CMS based on Yii2 framework
+alpha-version Yet-unnamed CMS based on Yii2 framework
 
 Installation
 
