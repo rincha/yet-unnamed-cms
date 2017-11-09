@@ -1,26 +1,25 @@
 <?php
 
+/**
+ * @copyright Copyright (c) 2017 rincha
+ * @license BSD https://opensource.org/licenses/BSD-3-Clause
+ */
+
 namespace app\common\actions;
 
 use Yii;
 
-class CaptchaActionRand extends \yii\captcha\CaptchaAction
-{
+class CaptchaActionRand extends \yii\captcha\CaptchaAction {
+
     protected function getRandFontFile() {
-        $files=glob(\Yii::getAlias('@app/common/fonts/captcha').DIRECTORY_SEPARATOR.'*.ttf');
-        return $files[rand(0, count($files)-1)];
+        $files = glob(\Yii::getAlias('@app/common/fonts/captcha') . DIRECTORY_SEPARATOR . '*.ttf');
+        return $files[rand(0, count($files) - 1)];
     }
 
-    public function init()
-    {
+    public function init() {
         $this->fontFile = $this->getRandFontFile();
-
-
-        $f = array(mt_rand(0,150), mt_rand(0,150), mt_rand(0,150));
-        //$b = array(mt_rand(230,255), mt_rand(230,255), mt_rand(200,255));
-        $this->foreColor = hexdec('0x'.dechex($f[0]).dechex($f[1]).dechex($f[2]));
-        //$this->backColor = hexdec('0x'.dechex($b[0]).dechex($b[1]).dechex($b[2]));
-
+        $f = array(mt_rand(0, 150), mt_rand(0, 150), mt_rand(0, 150));
+        $this->foreColor = hexdec('0x' . dechex($f[0]) . dechex($f[1]) . dechex($f[2]));
         if (!is_file($this->fontFile)) {
             throw new InvalidConfigException("The font file does not exist: {$this->fontFile}");
         }
@@ -30,8 +29,7 @@ class CaptchaActionRand extends \yii\captcha\CaptchaAction
      * Generates a new verification code.
      * @return string the generated verification code
      */
-    protected function generateVerifyCode()
-    {
+    protected function generateVerifyCode() {
         if ($this->minLength > $this->maxLength) {
             $this->maxLength = $this->minLength;
         }
@@ -43,17 +41,17 @@ class CaptchaActionRand extends \yii\captcha\CaptchaAction
         }
         $length = mt_rand($this->minLength, $this->maxLength);
 
-        $numbers = '1234567890';
+        $numbers = '123456789';
         $symbols = 'WGQJRSLNDZXV';
         $code = '';
         for ($i = 0; $i < $length; ++$i) {
             if ($i % 2 && mt_rand(0, 10) > 2 || !($i % 2) && mt_rand(0, 10) > 9) {
-                $code .= $symbols[mt_rand(0, strlen($symbols)-1)];
+                $code .= $symbols[mt_rand(0, strlen($symbols) - 1)];
             } else {
-                $code .= $numbers[mt_rand(0, strlen($numbers)-1)];
+                $code .= $numbers[mt_rand(0, strlen($numbers) - 1)];
             }
         }
-        Yii::trace('New verify code for '.$this->getSessionKey().': '.$code, 'captcha');
+        Yii::trace('New verify code for ' . $this->getSessionKey() . ': ' . $code, 'captcha');
         return $code;
     }
 
@@ -63,24 +61,23 @@ class CaptchaActionRand extends \yii\captcha\CaptchaAction
      * @param bool $caseSensitive whether the comparison should be case-sensitive
      * @return bool whether the input is valid
      */
-    public function validate($input, $caseSensitive)
-    {
+    public function validate($input, $caseSensitive) {
         $code = $this->getVerifyCode();
         $valid = $caseSensitive ? ($input === $code) : strcasecmp($input, $code) === 0;
         $session = Yii::$app->getSession();
         $session->open();
         $name = $this->getSessionKey() . 'count';
-        $count=$session->get($name,0);
+        $count = $session->get($name, 0);
         $session->set($name, $count);
-        Yii::trace('Validate verify code.'.\yii\helpers\VarDumper::dumpAsString([
-            'Session count name'=>$name,
-            'Code'=>$code,
-            'Input'=>$input,
-            'CaseSensitive'=>$caseSensitive,
-            'Valid'=>$valid,
-            'Count'=>$count,
-            'TestLimit'=>$this->testLimit
-        ]), 'captcha');
+        Yii::trace('Validate verify code.' . \yii\helpers\VarDumper::dumpAsString([
+                    'Session count name' => $name,
+                    'Code' => $code,
+                    'Input' => $input,
+                    'CaseSensitive' => $caseSensitive,
+                    'Valid' => $valid,
+                    'Count' => $count,
+                    'TestLimit' => $this->testLimit
+                ]), 'captcha');
 
         if ($valid || $count > $this->testLimit && $this->testLimit > 0) {
             $this->getVerifyCode(true);
@@ -88,4 +85,5 @@ class CaptchaActionRand extends \yii\captcha\CaptchaAction
 
         return $valid;
     }
+
 }

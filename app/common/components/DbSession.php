@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (c) 2016 rincha263
+ * @copyright Copyright (c) 2017 rincha
  * @license BSD https://opensource.org/licenses/BSD-3-Clause
  */
 
@@ -15,7 +15,7 @@ use yii\db\Query;
 use yii\helpers\StringHelper;
 
 /**
- * @author rincha263
+ * @author rincha
  */
 class DbSession extends \yii\web\DbSession {
 
@@ -34,7 +34,7 @@ class DbSession extends \yii\web\DbSession {
         };
         $this->writeCallback = function ($session) {
             $res = [
-                'created_at' => new Expression('IF(created_at,created_at,NOW())'),
+                'created_at' => new Expression('NOW()'),
                 'updated_at' => new Expression('NOW()'),
                 'ip' => Yii::$app->request->userIP,
                 'user_agent' => StringHelper::truncate(Yii::$app->request->userAgent, 4090),
@@ -45,7 +45,7 @@ class DbSession extends \yii\web\DbSession {
             return $res;
         };
         parent::init();
-        $this->db = Instance::ensure($this->db, Connection::className());
+        //$this->db = Instance::ensure($this->db, Connection::className());
     }
 
     public function destroyUserSessions($user_id) {
@@ -83,6 +83,73 @@ class DbSession extends \yii\web\DbSession {
             $fields['expire']=time() + $this->guestTimeout;
         }
         return $fields;
+    }
+
+    /**
+     * Session write handler.
+     * @internal Do not call this method directly.
+     * @param string $id session ID
+     * @param string $data session data
+     * @return bool whether session write is successful
+     */
+    public function writeSession($id, $data)
+    {
+        // exception must be caught in session write handler
+        // http://us.php.net/manual/en/function.session-set-save-handler.php#refsect1-function.session-set-save-handler-notes
+        try {
+            $query = new Query();
+            $exists = $query->select(['id'])
+                ->from($this->sessionTable)
+                ->where(['id' => $id])
+                ->createCommand($this->db)
+                ->queryScalar();
+            $fields = $this->composeFields($id, $data);
+            $fields = $this->typecastFields($fields);
+            if ($exists === false) {
+                $this->db->createCommand()
+                    ->insert($this->sessionTable, $fields)
+                    ->execute();
+            } else {
+                unset($fields['id']);
+                unset($fields['created_at']);
+                $this->db->createCommand()
+                    ->update($this->sessionTable, $fields, ['id' => $id])
+                    ->execute();
+            }
+        } catch (\Exception $e) {
+            Yii::$app->errorHandler->handleException($e);
+            return false;
+        }
+
+        return true;
+    }
+
+
+    //
+    /**
+     * Session read handler.
+     * @internal Do not call this method directly.
+     * @param string $id session ID
+     * @return string the session data
+     */
+    public function readSession($id)
+    {
+        $query = new Query();
+        $query->from($this->sessionTable)
+            ->where('[[expire]]>:expire AND [[id]]=:id', [':expire' => time(), ':id' => $id]);
+
+        if ($this->readCallback !== null) {
+            $fields = $query->one($this->db);
+            //TODO WTF FIX
+            if (is_resource($fields['data']) && get_resource_type($fields['data']) === 'stream') {
+                $fields['data']=stream_get_contents($fields['data']);
+            }
+            return $fields === false ? '' : $this->extractData($fields);
+        }
+
+        $data = $query->select(['data'])->scalar($this->db);
+
+        return $data === false ? '' : $data;
     }
 
 }

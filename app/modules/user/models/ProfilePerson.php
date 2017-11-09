@@ -17,39 +17,34 @@ use yii\db\ActiveRecord;
  *
  * @property User $user
  */
-class ProfilePerson extends \yii\db\ActiveRecord
-{
+class ProfilePerson extends \app\common\components\ProfileBase {
 
     public static function getLabel() {
-        return Yii::t('user/common','Person');
+        return Yii::t('user/common', 'Person');
     }
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%user_profile_person}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['user_id'], 'required','on'=>'admin'],
-            [['user_id'], 'integer','on'=>'admin'],
-            [['user_id'], 'exist', 'targetClass'=>  User::className(),'targetAttribute'=>'id','on'=>'admin'],
-
+            [['user_id'], 'required', 'on' => 'admin'],
+            [['user_id'], 'integer', 'on' => 'admin'],
+            [['user_id'], 'exist', 'targetClass' => User::className(), 'targetAttribute' => 'id', 'on' => 'admin'],
             [['last_name', 'first_name'], 'required'],
             [['birthday'], 'date'],
             [['last_name', 'first_name', 'middle_name'], 'string', 'max' => 127]
         ];
     }
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'dateformat' => [
                 'class' => \yii\behaviors\AttributeBehavior::className(),
@@ -58,7 +53,7 @@ class ProfilePerson extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'birthday',
                 ],
                 'value' => function($event) {
-                    return date('Y-m-d',  strtotime($event->sender->birthday));
+                    return date('Y-m-d', strtotime($event->sender->birthday));
                 },
             ],
         ];
@@ -67,22 +62,21 @@ class ProfilePerson extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'user_id' => Yii::t('app/user', 'User'),
-            'last_name' => Yii::t('user/common','Last Name'),
-            'first_name' => Yii::t('user/common','First Name'),
-            'middle_name' => Yii::t('user/common','Middle Name'),
-            'birthday' => Yii::t('user/common','Birthday'),
+            'last_name' => Yii::t('user/common', 'Last Name'),
+            'first_name' => Yii::t('user/common', 'First Name'),
+            'middle_name' => Yii::t('user/common', 'Middle Name'),
+            'birthday' => Yii::t('user/common', 'Birthday'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
 }

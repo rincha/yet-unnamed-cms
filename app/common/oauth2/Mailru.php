@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright Copyright (c) 2017 rincha
+ * @license BSD https://opensource.org/licenses/BSD-3-Clause
+ */
 
 namespace app\common\oauth2;
 

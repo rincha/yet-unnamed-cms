@@ -17,7 +17,8 @@ use yii\captcha\Captcha;
     if ($model->scenario=='login-captcha') {
         ?>
         <div class="form-group">
-        <?= $form->field($model, 'verify_code', ['enableClientValidation' => false])->widget(Captcha::className(), ['captchaAction' => '/site/captcha']) ?>
+        <?= $form->field($model, 'verify_code', ['enableClientValidation' => false])
+                ->widget(Captcha::className(), ['captchaAction' => ['/site/captcha']]) ?>
         </div>
         <?php
     }

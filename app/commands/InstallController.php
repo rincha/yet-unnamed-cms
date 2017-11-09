@@ -41,6 +41,10 @@ class InstallController extends Controller {
             $this->stdout(basename($distfile).' '.$b.' bytes'."\n");
         }
         $this->stdout("Install config done!\n");
+        chmod(Yii::getAlias('@webroot').DIRECTORY_SEPARATOR.'web/assets', 0777);
+        chmod(Yii::getAlias('@webroot').DIRECTORY_SEPARATOR.'web/files', 0777);
+        chmod(Yii::getAlias('@webroot').DIRECTORY_SEPARATOR.'web/uploads', 0777);
+        chmod(Yii::getAlias('@app').DIRECTORY_SEPARATOR.'runtime', 0777);
     }
 
     public function actionDb() {
@@ -163,24 +167,33 @@ class InstallController extends Controller {
     private function db() {
         $dsn=$this->prompt(
             'Enter DSN string for datebase connection (like "mysql:host=localhost;dbname=YOUR_DB_NAME"):',
-            ['required' => true,]
+            ['required' => false,]
         );
-        $username=$this->prompt(
-            'Enter datebase username:',
-            ['required' => true,]
-        );
-        $password=$this->prompt(
-            'Enter datebase password:',
-            ['required' => true,]
-        );
-        $dbc= new Connection([
-            'dsn' => $dsn,
-            'username' => $username,
-            'password' => $password,
-        ]);
-        $this->stdout('Checking connect to datebase: ');
-        $dbc->open();
-        $this->stdout("OK\n");
+
+        if ($dsn) {
+            $username=$this->prompt(
+                'Enter datebase username:',
+                ['required' => true,]
+            );
+            $password=$this->prompt(
+                'Enter datebase password:',
+                ['required' => true,]
+            );
+            $dbc= new Connection([
+                'dsn' => $dsn,
+                'username' => $username,
+                'password' => $password,
+            ]);
+            $this->stdout('Checking connect to datebase: ');
+            $dbc->open();
+            $this->stdout("OK\n");
+        }
+        else {
+            $dsn='mysql:host=localhost;dbname=YOUR_DB_NAME';
+            $username='YOUR_DB_USERNAME';
+            $password='YOUR_DB_PASSWORD';
+        }
+
         return [
             'db_dsn'=>$dsn,
             'db_username'=>$username,

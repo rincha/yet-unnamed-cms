@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\User;
+use app\models\UserLoginTry;
 use app\models\LoginForm;
 use app\models\UserAuthentication;
 use app\models\UserRestore;
@@ -34,7 +35,13 @@ class UserController extends \app\common\web\DefaultController {
         $model->scenario = 'login';
         if ($model->load(Yii::$app->request->post())) {
             if ($model->user) {
-                $try=$model->user->getLoginTry()->where(['>', 'updated_at',new \yii\db\Expression('DATE_SUB(now(), INTERVAL 15 MINUTE)')])->one();
+                $try=$model->user->getLoginTry()
+                        ->where([
+                            '>',
+                            'updated_at',
+                            date('Y-m-d H:i:s', time()-UserLoginTry::TRY_INTERVAL)
+                        ])
+                        ->one();
                 if ($try && $try->count >= Yii::$app->user->authentications['max_login_try']) {
                     $model->scenario = 'login-captcha';
                     $model->load(Yii::$app->request->post());

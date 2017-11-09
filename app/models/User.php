@@ -310,6 +310,8 @@ class User extends ActiveRecord implements IdentityInterface {
     public function getLoginTry() {
         return $this->hasOne(UserLoginTry::className(), ['user_id' => 'id']);
     }
+
+
     public function addLoginTry() {
         $this->refresh();
         if (!$this->loginTry) {

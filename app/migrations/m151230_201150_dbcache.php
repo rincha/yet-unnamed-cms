@@ -16,7 +16,7 @@ class m151230_201150_dbcache extends Migration {
             $this->createTable('{{%cache}}', [
                 'id' => Schema::TYPE_CHAR . '(128) NOT NULL',
                 'expire' => Schema::TYPE_INTEGER,
-                'data' => "LONGBLOB",
+                'data' => Schema::TYPE_BINARY,
             ], $tableOptions);
             $this->addPrimaryKey('cache_pk', '{{%cache}}', ['id']);
         } catch (\yii\db\Exception $e) {

@@ -16,24 +16,24 @@ use yii\db\Expression;
  *
  * @property User $user
  */
-class UserLoginTry extends \yii\db\ActiveRecord
-{
+class UserLoginTry extends \yii\db\ActiveRecord {
+
+    const TRY_INTERVAL=900;
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%user_login_try}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [];
     }
-    
+
     public function behaviors() {
         return [
             [
@@ -48,8 +48,7 @@ class UserLoginTry extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'user_id' => 'User ID',
             'count' => 'Count',
@@ -61,8 +60,8 @@ class UserLoginTry extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
 }

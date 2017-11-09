@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (c) 2016 rincha263
+ * @copyright Copyright (c) 2017 rincha
  * @license BSD https://opensource.org/licenses/BSD-3-Clause
  */
 
@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\LinkPager;
 
 /**
- * @author rincha263
+ * @author rincha
  */
 class GridView extends \yii\grid\GridView {
 

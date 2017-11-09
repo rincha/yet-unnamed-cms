@@ -1,4 +1,9 @@
 <?php
+/**
+ * @copyright Copyright (c) 2017 rincha
+ * @license BSD https://opensource.org/licenses/BSD-3-Clause
+ */
+
 namespace app\common\behaviors;
 use Yii;
 use yii\db\ActiveRecord;
@@ -6,24 +11,24 @@ use yii\db\ActiveRecord;
 /**
  *
  * @author rincha
- * 
+ *
  * @property yii\db\ActiveRecord $owner
  */
 
 class HistoryBehavior extends \yii\base\Behavior {
-    
+
     public $historyClass=null;
     public $historyFk=null;
     public $historyAttributes=['status'];
     public $eventAttributes=['status'];
-        
+
     public function events() {
         return [
             ActiveRecord::EVENT_AFTER_INSERT=>'addHistory',
             ActiveRecord::EVENT_AFTER_UPDATE=>'afterUpdate',
         ];
     }
-    
+
     public function afterUpdate($event) {
         $changed=[];
         foreach ($this->eventAttributes as $attribute) {
@@ -34,8 +39,8 @@ class HistoryBehavior extends \yii\base\Behavior {
         if ($changed) {
             $this->addHistory($event);
         }
-    }  
-    
+    }
+
     public function addHistory($event) {
         if ($this->historyClass===null) {
             $this->historyClass=$this->owner->className().'History';
@@ -58,5 +63,5 @@ class HistoryBehavior extends \yii\base\Behavior {
         }
         $history->save();
     }
-    
+
 }

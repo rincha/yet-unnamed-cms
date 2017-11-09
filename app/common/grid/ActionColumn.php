@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (c) 2016 rincha263
+ * @copyright Copyright (c) 2017 rincha
  * @license BSD https://opensource.org/licenses/BSD-3-Clause
  */
 namespace app\common\grid;
@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use Yii;
 /**
- * @author rincha263
+ * @author rincha
  */
 class ActionColumn extends \yii\grid\ActionColumn {
 

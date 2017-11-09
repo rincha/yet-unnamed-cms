@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright Copyright (c) 2017 rincha
+ * @license BSD https://opensource.org/licenses/BSD-3-Clause
+ */
 
 namespace app\common\helpers;
 
@@ -320,7 +324,7 @@ class AppHelper {
 
     public static function htmlPurify($html, $type = 'light', $options = []) {
         $config = array_merge(self::getHtmlPurifyOptions($type), $options);
-        return \app\common\components\HtmlPurifier::process($html, $config);
+        return HtmlPurifier::process($html, $config);
     }
 
     public static function translit($str) {

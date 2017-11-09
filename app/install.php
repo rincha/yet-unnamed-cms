@@ -31,6 +31,7 @@ $config = [
         'authManager'=>[
             'class' => 'app\modules\rbac\components\DbManager',
         ],
+        'i18n' => require(__DIR__ . '/config/i18n.php'),
     ],
 ];
 

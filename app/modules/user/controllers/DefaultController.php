@@ -78,13 +78,13 @@ class DefaultController extends \app\common\web\DefaultController {
             ]));
         }
         elseif ($authentication->load(Yii::$app->request->post())) {
-            $exist_authentication = $this->findAuthenicationModel($authentication->type, $authentication->uid);
+            $exist_authentication = $this->findAuthenicationModel($authentication->type, $authentication->uid, true);
             if ($exist_authentication && $exist_authentication->status==User::STATUS_NOACTIVE) {
                 $authentication=$exist_authentication;
             }
             $authentication->user_id=$user->id;
             $authentication->type=$type;
-            $authentication->status=  UserAuthentication::STATUS_DRAFT;
+            $authentication->status=UserAuthentication::STATUS_DRAFT;
             if ($authentication->validate() && !$authentication->typeModel->protocol) {
                 $res = $authentication->typeModel->sendConfirm();
                 if (isset($res['redirect'])) {

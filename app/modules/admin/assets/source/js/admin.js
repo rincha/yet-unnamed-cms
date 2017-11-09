@@ -53,7 +53,7 @@ jQuery(document).ready(function () {
                 }
             });
         else {
-            $('#adm-menu').animate({width:$('.adm-leftbar').width(),paddingRight:0},{
+            $('#adm-menu').animate({width:14,paddingRight:0},{
                 complete:function(){
                     $('#adm-menu a > span.text').hide();
                     $('#adm-menu .glyphicon-menu-right').show();

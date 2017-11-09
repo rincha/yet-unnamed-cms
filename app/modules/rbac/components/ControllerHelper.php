@@ -2,6 +2,9 @@
 
 namespace app\modules\rbac\components;
 
+use app\common\web\DefaultController;
+use app\common\web\AdminController;
+
 use Yii;
 
 /**
@@ -9,7 +12,7 @@ use Yii;
  * @author rincha
  */
 class ControllerHelper {
-    
+
     public static function getAllControllers() {
         $list = [];
         $modules = Yii::$app->getModules();
@@ -51,7 +54,7 @@ class ControllerHelper {
 
                 $controller = new $className($contollerId, Yii::$app->getModule($key));
 
-                if ($controller instanceof \app\common\web\DefaultController && $controller->rbacEnable) {
+                if (($controller instanceof DefaultController && $controller->rbacEnable) || $controller instanceof AdminController) {
                     $list[$key]['controllers'][$contollerId]=[
                         'id' => $contollerId,
                         'name' => $contollerName,
